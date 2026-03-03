@@ -8,9 +8,10 @@ interface TrackCardProps {
   image: string;
   type?: 'album' | 'artist';
   loading?: boolean;
+  onPlay?: () => void;
 }
 
-export const TrackCard: React.FC<TrackCardProps> = ({ title, artist, image, type = 'album', loading }) => {
+export const TrackCard: React.FC<TrackCardProps> = ({ title, artist, image, type = 'album', loading, onPlay }) => {
   if (loading) {
     return (
       <div className="flex flex-col gap-2 md:gap-3 min-w-[120px] md:min-w-[160px]">
@@ -28,6 +29,7 @@ export const TrackCard: React.FC<TrackCardProps> = ({ title, artist, image, type
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       whileHover={{ scale: 1.02 }}
+      onClick={onPlay}
       className="flex flex-col group cursor-pointer min-w-[120px] md:min-w-[160px]"
     >
       <div className={`relative aspect-square w-full mb-2 md:mb-3 overflow-hidden shadow-lg ${type === 'artist' ? 'rounded-full' : 'rounded-lg'}`}>

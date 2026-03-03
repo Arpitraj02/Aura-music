@@ -6,6 +6,7 @@ import { RightSidebar } from './components/RightSidebar';
 import { MobileNav } from './components/MobileNav';
 import { UserProvider } from './contexts/UserContext';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { MusicProvider } from './contexts/MusicContext';
 
 export default function App() {
   const [isPlayerExpanded, setIsPlayerExpanded] = useState(false);
@@ -14,19 +15,21 @@ export default function App() {
   return (
     <ThemeProvider>
       <UserProvider>
-        <div className="relative h-screen w-full flex flex-col overflow-hidden">
-          {/* Background Atmosphere */}
-          <div className="atmosphere" />
-          
-          <div className="flex flex-1 overflow-hidden relative">
-            <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-            <MainContent activeTab={activeTab} />
-            <RightSidebar />
+        <MusicProvider>
+          <div className="relative h-screen w-full flex flex-col overflow-hidden">
+            {/* Background Atmosphere */}
+            <div className="atmosphere" />
+            
+            <div className="flex flex-1 overflow-hidden relative">
+              <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+              <MainContent activeTab={activeTab} />
+              <RightSidebar />
+            </div>
+            
+            <Player isExpanded={isPlayerExpanded} setIsExpanded={setIsPlayerExpanded} />
+            {!isPlayerExpanded && <MobileNav activeTab={activeTab} setActiveTab={setActiveTab} />}
           </div>
-          
-          <Player isExpanded={isPlayerExpanded} setIsExpanded={setIsPlayerExpanded} />
-          {!isPlayerExpanded && <MobileNav activeTab={activeTab} setActiveTab={setActiveTab} />}
-        </div>
+        </MusicProvider>
       </UserProvider>
     </ThemeProvider>
   );
